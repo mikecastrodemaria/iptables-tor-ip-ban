@@ -3,9 +3,10 @@
 
 #  this script download Ip list from check.torproject.org
 #+ using your configured ip
-#  replace MYIP value by your own IP
 #  replace SETNAME value by your own iptable chaine name
-#  use iptable and logger
+#  replace MYIP value by your own server IP
+#
+#  Use iptable and logger
 
 SETNAME="tor_ips"
 MYIP="192.168.0.100"
@@ -24,7 +25,7 @@ if [ -n "$IP" ]; then # only proceed if new IPs are obtained
         for ipliste in $IP
                 do
                         /sbin/iptables -A $SETNAME -s $ipliste -j REJECT
-                        #echo "suppression de l'IP:" $ipliste
+                        #echo "reject IP :" $ipliste
                         logger -t "tor_ip_block" "Add iptables rules for ip $ipliste using chain $SETNAME ."
                 done
 else
